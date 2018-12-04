@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TodoList } from './pages/TodoList/TodoList';
-import { getTasks } from "./redux/actions/taskActions";
+import { getTasksAction } from "./redux/actions/taskActions";
 import { AppState } from "./redux/types";
 import { Task } from './types/tasks';
 
@@ -25,6 +25,6 @@ class App extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: AppState) => ({tasks: state.tasks});
 
-const mapDispatchToProps = (dispatch: any) => ({getTasks: bindActionCreators(getTasks, dispatch)});
+const mapDispatchToProps = (dispatch: any) => ({getTasks: bindActionCreators(getTasksAction, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
