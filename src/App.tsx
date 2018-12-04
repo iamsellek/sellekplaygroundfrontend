@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 import { TodoList } from './pages/TodoList/TodoList';
 import { getTasksAction } from "./redux/actions/taskActions";
 import { AppState } from "./redux/types";
-import { Task } from './types/tasks';
+import { Tasks } from "./types/tasks";
 
 interface Props {
-  tasks: Task[];
+  tasks: Tasks;
   getTasks: any;
 }
 

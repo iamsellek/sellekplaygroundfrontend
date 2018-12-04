@@ -1,5 +1,5 @@
-import { Task } from "../types/tasks";
+import { Tasks } from "../types/tasks";
 
 export interface AppState {
-  tasks: Task[];
+  tasks: Tasks;
 }
