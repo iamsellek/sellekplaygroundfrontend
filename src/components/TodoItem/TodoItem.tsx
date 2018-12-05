@@ -8,14 +8,17 @@ interface Props {
 }
 
 export class TodoItem extends React.Component<Props, {}> {
+  public state = {task: this.props.task};
+
   render() {
-    const {task} = this.props;
+    const {task} = this.state;
 
     return (
       <ListItem
         button
         onClick={() => {
-          toggleTask(task);
+          const newTask = toggleTask(task);
+          this.setState({task: newTask});
         }}
       >
         <Checkbox checked={task.done} />
