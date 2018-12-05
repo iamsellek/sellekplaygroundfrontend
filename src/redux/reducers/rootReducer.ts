@@ -1,5 +1,5 @@
-import { RECEIVE_TASKS } from "../actions/actionTypes";
-import initialState from "./initialState";
+import {RECEIVE_TASKS} from '../actions/actionTypes';
+import initialState from './initialState';
 
 const rootReducer = (state = initialState, action: any) => {
   let newState;

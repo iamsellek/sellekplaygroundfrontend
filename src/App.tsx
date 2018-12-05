@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { TodoList } from './pages/TodoList/TodoList';
-import { getTasksAction } from "./redux/actions/taskActions";
-import { AppState } from "./redux/types";
-import { Tasks } from "./types/tasks";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {TodoList} from './pages/TodoList/TodoList';
+import {getTasksAction} from './redux/actions/taskActions';
+import {AppState} from './redux/types';
+import {Tasks} from './types/tasks';
 
 interface Props {
   tasks: Tasks;
@@ -19,12 +19,17 @@ class App extends React.Component<Props, {}> {
   render() {
     const {tasks} = this.props;
 
-    return <TodoList tasks={tasks} />
-  };
+    return <TodoList tasks={tasks} />;
+  }
 }
 
 const mapStateToProps = (state: AppState) => ({tasks: state.tasks});
 
-const mapDispatchToProps = (dispatch: any) => ({getTasks: bindActionCreators(getTasksAction, dispatch)});
+const mapDispatchToProps = (dispatch: any) => ({
+  getTasks: bindActionCreators(getTasksAction, dispatch),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -1,4 +1,4 @@
-import { Tasks } from "../types/tasks";
+import {Tasks} from '../types/tasks';
 
 export interface AppState {
   tasks: Tasks;
