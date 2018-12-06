@@ -7,14 +7,14 @@ import {updateTask} from './services';
 
 const receiveTasksAction = (tasks: Tasks) => ({type: RECEIVE_TASKS, tasks});
 
-export const getTasksAction = () => async (dispatch: any) => {
+export const getTasksAction = () => async (dispatch: any): Promise<void> => {
   const response = await axios.get(TASKS_URL);
   dispatch(receiveTasksAction(response.data));
 };
 
 export const updateTaskAction = (tasks: Tasks, id: string) => async (
   dispatch: any
-) => {
+): Promise<void> => {
   const taskToUpdate = find(tasks, {id});
   await axios.put(getTasksUrlWithId(id), taskToUpdate, {
     headers: {'Content-Type': 'application/json'},

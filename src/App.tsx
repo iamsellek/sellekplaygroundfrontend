@@ -1,35 +1,24 @@
 import * as React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {TodoList} from './pages/TodoList/TodoList';
-import {getTasksAction} from './redux/actions/taskActions';
-import {AppState} from './redux/types';
-import {Tasks} from './types/tasks';
+import {Provider} from 'react-redux';
+import {BrowserRouter, Route} from 'react-router-dom';
+import OverrideRouter from './components/OverrideRouter/OverrideRouter';
+import Login from './pages/Login/Login';
+import TodoList from './pages/TodoList/TodoList';
+import store from './redux/index';
+import {HOME_PATH, LOGIN_PATH} from './types/appConstants';
 
-interface Props {
-  tasks: Tasks;
-  getTasks: any;
-}
+const App: React.SFC<{}> = () => (
+  <Provider store={store}>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <BrowserRouter>
+        <React.Fragment>
+          <Route path={LOGIN_PATH} component={Login} />
+          <Route path={HOME_PATH} component={TodoList} />
+          <OverrideRouter />
+        </React.Fragment>
+      </BrowserRouter>
+    </div>
+  </Provider>
+);
 
-class App extends React.Component<Props, {}> {
-  componentWillMount() {
-    this.props.getTasks();
-  }
-
-  render() {
-    const {tasks} = this.props;
-
-    return <TodoList tasks={tasks} />;
-  }
-}
-
-const mapStateToProps = (state: AppState) => ({tasks: state.tasks});
-
-const mapDispatchToProps = (dispatch: any) => ({
-  getTasks: bindActionCreators(getTasksAction, dispatch),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;
