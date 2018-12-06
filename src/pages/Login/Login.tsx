@@ -16,7 +16,7 @@ class Login extends React.Component<{}, {}> {
             <TextField fullWidth label="Email" />
           </LoginDiv>
           <LoginDiv>
-            <TextField type="password" fullWidth label="Password" />
+            <TextField fullWidth type="password" label="Password" />
           </LoginDiv>
         </form>
       </div>

@@ -1,11 +1,25 @@
 import * as React from 'react';
-import {Redirect} from 'react-router';
-import {LOGIN_PATH} from '../../types/appConstants';
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import {AppState} from '../../redux/types';
+import {HOME_PATH, LOGIN_PATH} from '../../types/appConstants';
 
-class OverrideRouter extends React.Component<{}> {
+interface Props {
+  loggedIn: boolean;
+}
+
+class OverrideRouter extends React.Component<Props> {
   render() {
-    return <Redirect to={LOGIN_PATH} />;
+    const {loggedIn} = this.props;
+
+    if (!loggedIn) {
+      return <Redirect to={LOGIN_PATH} />;
+    } else {
+      return <Redirect to={HOME_PATH} />;
+    }
   }
 }
 
-export default OverrideRouter;
+const mapStateToProps = (state: AppState) => ({loggedIn: state.loggedIn});
+
+export default connect(mapStateToProps)(OverrideRouter);
