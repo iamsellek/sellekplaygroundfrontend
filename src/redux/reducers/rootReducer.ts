@@ -1,6 +1,7 @@
 import {
   FAILED_LOGIN,
   GET_TOKEN,
+  LOG_OUT,
   RECEIVE_TASKS,
   SUCCESSFUL_LOGIN,
 } from '../actions/actionTypes';
@@ -23,6 +24,8 @@ const rootReducer = (state = initialState, action: any) => {
         ...state,
         loggedIn: true,
       };
+    case LOG_OUT:
+      return {...state, loggedIn: false};
     case RECEIVE_TASKS:
       return {...state, tasks: action.tasks};
     default:
