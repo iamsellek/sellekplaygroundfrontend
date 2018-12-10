@@ -20,8 +20,9 @@ export const updateTaskAction = (tasks: Tasks, id: string) => async (
   dispatch: any
 ): Promise<void> => {
   const taskToUpdate = find(tasks, {id});
+  const token = await getAuthToken();
   await axios.put(getTasksUrlWithId(id), taskToUpdate, {
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'application/json', Authorization: token},
   });
   const newTasks: Tasks = updateTask(taskToUpdate, tasks);
   dispatch(receiveTasksAction(newTasks));
