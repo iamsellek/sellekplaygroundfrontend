@@ -3,7 +3,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {TodoItem} from '../../components/TodoItem/TodoItem';
-import {getTasksAction} from '../../redux/actions/taskActions';
+import {getTasksAction} from '../../redux/actions/tasks/actions';
 import {AppState} from '../../redux/types';
 import {Tasks} from '../../types/tasks';
 

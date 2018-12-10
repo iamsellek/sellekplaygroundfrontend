@@ -4,6 +4,7 @@ const BASE_API_URL =
     ? 'https://sellekplayground.appspot.com'
     : 'http://localhost:8080';
 
+export const LOGIN_URL = `${BASE_API_URL}/login`;
 export const TASKS_URL = `${BASE_API_URL}/tasks`;
 export const getTasksUrlWithId = (id: string) => `${TASKS_URL}/${id}`;
 

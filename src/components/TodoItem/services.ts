@@ -1,5 +1,5 @@
 import store from '../../redux';
-import {updateTaskAction} from '../../redux/actions/taskActions';
+import {updateTaskAction} from '../../redux/actions/tasks/actions';
 import {Task} from '../../types/tasks';
 
 export const toggleTask = (task: Task): Task => {

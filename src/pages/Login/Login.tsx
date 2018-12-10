@@ -1,7 +1,17 @@
-import {Button, TextField} from '@material-ui/core';
+import {Button, FormHelperText, TextField} from '@material-ui/core';
 import * as React from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {FullWidthDiv} from '../../components/common/common';
 import {Loading} from '../../components/Loading/Loading';
+import {makeLoginCall} from '../../redux/actions/users/actions';
+import {AppState} from '../../redux/types';
 import {LoginDiv} from './components';
+
+interface Props {
+  errorMessage: string;
+  makeLoginCall: any;
+}
 
 interface State {
   email: string;
@@ -11,7 +21,7 @@ interface State {
   isLoggingIn: boolean;
 }
 
-class Login extends React.Component<{}, State> {
+class Login extends React.Component<Props, State> {
   state = {
     email: '',
     emailError: false,
@@ -19,6 +29,12 @@ class Login extends React.Component<{}, State> {
     passwordError: false,
     isLoggingIn: false,
   };
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.errorMessage !== prevProps.errorMessage) {
+      this.setState({emailError: true, passwordError: true});
+    }
+  }
 
   handleEmailChange(email: string) {
     this.setState({email});
@@ -57,10 +73,12 @@ class Login extends React.Component<{}, State> {
       });
     } else {
       this.setState({isLoggingIn: true});
+      this.props.makeLoginCall(this.state.email, this.state.password);
     }
   }
 
   render() {
+    const {errorMessage} = this.props;
     const {emailError, passwordError, isLoggingIn} = this.state;
 
     return (
@@ -76,7 +94,11 @@ class Login extends React.Component<{}, State> {
               error={emailError}
               id="email"
               label="Email"
-              helperText={emailError && 'Please enter a valid email address.'}
+              helperText={
+                !errorMessage &&
+                emailError &&
+                'Please enter a valid email address.'
+              }
               onChange={e => this.handleEmailChange(e.target.value)}
               onBlur={() => {
                 this.setState({emailError: this.hasEmailError()});
@@ -93,7 +115,9 @@ class Login extends React.Component<{}, State> {
               id="password"
               label="Password"
               helperText={
-                passwordError && 'Minimum length for passwords is 8 characters.'
+                !errorMessage &&
+                passwordError &&
+                'Minimum length for passwords is 8 characters.'
               }
               onChange={e => this.handlePasswordChange(e.target.value)}
               onBlur={() => {
@@ -111,17 +135,24 @@ class Login extends React.Component<{}, State> {
               paddingTop: '3em',
             }}
           >
-            {isLoggingIn ? (
+            {isLoggingIn && !errorMessage ? (
               <Loading />
             ) : (
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Login
-              </Button>
+              <FullWidthDiv>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Login
+                </Button>
+              </FullWidthDiv>
+            )}
+          </div>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            {errorMessage && (
+              <FormHelperText error>{errorMessage}</FormHelperText>
             )}
           </div>
         </form>
@@ -130,4 +161,15 @@ class Login extends React.Component<{}, State> {
   }
 }
 
-export default Login;
+const mapStateToProps = (state: AppState) => ({
+  errorMessage: state.errorMessage,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  makeLoginCall: bindActionCreators(makeLoginCall, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

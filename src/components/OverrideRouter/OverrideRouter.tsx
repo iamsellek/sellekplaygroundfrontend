@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
-import {getAuthToken} from '../../redux/actions/userActions';
+import {getAuthToken} from '../../redux/actions/users/actions';
 import {AppState} from '../../redux/types';
 import {HOME_PATH, LOGIN_PATH} from '../../types/appConstants';
 

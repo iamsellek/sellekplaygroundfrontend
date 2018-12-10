@@ -1,4 +1,10 @@
-import {GET_TOKEN, RECEIVE_TASKS} from '../actions/actionTypes';
+import {
+  FAILED_LOGIN,
+  GET_TOKEN,
+  RECEIVE_TASKS,
+  SUCCESFUL_LOGIN,
+} from '../actions/actionTypes';
+import {storeAuthToken} from '../actions/users/services';
 import initialState from './initialState';
 
 const rootReducer = (state = initialState, action: any) => {
@@ -7,6 +13,17 @@ const rootReducer = (state = initialState, action: any) => {
       return {
         ...state,
         loggedIn: !!action.token,
+      };
+    case FAILED_LOGIN:
+      return {
+        ...state,
+        errorMessage: action.message,
+      };
+    case SUCCESFUL_LOGIN:
+      storeAuthToken(action.token);
+      return {
+        ...state,
+        loggedIn: true,
       };
     case RECEIVE_TASKS:
       return {...state, tasks: action.tasks};
