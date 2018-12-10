@@ -3,12 +3,16 @@ import {find} from 'lodash';
 import {getTasksUrlWithId, TASKS_URL} from '../../../types/appConstants';
 import {Tasks} from '../../../types/tasks';
 import {RECEIVE_TASKS} from '../actionTypes';
+import {getAuthToken} from '../users/services';
 import {updateTask} from './services';
 
 const receiveTasksAction = (tasks: Tasks) => ({type: RECEIVE_TASKS, tasks});
 
 export const getTasksAction = () => async (dispatch: any): Promise<void> => {
-  const response = await axios.get(TASKS_URL);
+  const token = await getAuthToken();
+  const response = await axios.get(TASKS_URL, {
+    headers: {authorization: token},
+  });
   dispatch(receiveTasksAction(response.data));
 };
 

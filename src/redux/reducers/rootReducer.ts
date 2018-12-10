@@ -2,9 +2,8 @@ import {
   FAILED_LOGIN,
   GET_TOKEN,
   RECEIVE_TASKS,
-  SUCCESFUL_LOGIN,
+  SUCCESSFUL_LOGIN,
 } from '../actions/actionTypes';
-import {storeAuthToken} from '../actions/users/services';
 import initialState from './initialState';
 
 const rootReducer = (state = initialState, action: any) => {
@@ -19,8 +18,7 @@ const rootReducer = (state = initialState, action: any) => {
         ...state,
         errorMessage: action.message,
       };
-    case SUCCESFUL_LOGIN:
-      storeAuthToken(action.token);
+    case SUCCESSFUL_LOGIN:
       return {
         ...state,
         loggedIn: true,

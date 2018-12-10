@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {FullWidthDiv} from '../../components/common/common';
 import {Loading} from '../../components/Loading/Loading';
-import {makeLoginCall} from '../../redux/actions/users/actions';
+import {makeLoginCallAction} from '../../redux/actions/users/actions';
 import {AppState} from '../../redux/types';
 import {LoginDiv} from './components';
 
@@ -166,7 +166,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  makeLoginCall: bindActionCreators(makeLoginCall, dispatch),
+  makeLoginCall: bindActionCreators(makeLoginCallAction, dispatch),
 });
 
 export default connect(
