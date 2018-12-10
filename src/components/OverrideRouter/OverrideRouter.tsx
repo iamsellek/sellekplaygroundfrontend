@@ -1,14 +1,21 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {bindActionCreators} from 'redux';
+import {getAuthToken} from '../../redux/actions/userActions';
 import {AppState} from '../../redux/types';
 import {HOME_PATH, LOGIN_PATH} from '../../types/appConstants';
 
 interface Props {
   loggedIn: boolean;
+  getAuthToken: any;
 }
 
 class OverrideRouter extends React.Component<Props> {
+  componentDidMount() {
+    this.props.getAuthToken();
+  }
+
   render() {
     const {loggedIn} = this.props;
 
@@ -20,6 +27,15 @@ class OverrideRouter extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({loggedIn: state.loggedIn});
+const mapStateToProps = (state: AppState) => ({
+  loggedIn: state.loggedIn,
+});
 
-export default connect(mapStateToProps)(OverrideRouter);
+const mapDispatchToProps = (dispatch: any) => ({
+  getAuthToken: bindActionCreators(getAuthToken, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OverrideRouter);

@@ -10,3 +10,6 @@ export const getTasksUrlWithId = (id: string) => `${TASKS_URL}/${id}`;
 // Client URLs
 export const LOGIN_PATH = '/login';
 export const HOME_PATH = '/home';
+
+// Auth
+export const JWT_TOKEN = 'jwtToken';
