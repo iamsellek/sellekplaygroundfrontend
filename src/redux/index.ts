@@ -3,17 +3,21 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 const devTools =
-  process.env.NODE_ENV === 'development'
-    ? (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-    : null;
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__();
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    devTools
-  )
-);
+let store;
+
+if (process.env.NODE_ENV === 'development') {
+  store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(thunk),
+      devTools
+    )
+  );
+} else {
+  store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+}
 
 export default store;
