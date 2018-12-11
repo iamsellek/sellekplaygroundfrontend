@@ -7,3 +7,7 @@ export const getAuthToken = async (): Promise<string> =>
 export const storeAuthToken = async (token: string) => {
   localforage.setItem(JWT_TOKEN, token);
 };
+
+export const deleteAuthToken = async () => {
+  localforage.removeItem(JWT_TOKEN);
+};

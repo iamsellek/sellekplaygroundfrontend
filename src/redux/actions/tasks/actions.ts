@@ -10,12 +10,16 @@ const receiveTasksAction = (tasks: Tasks) => ({type: RECEIVE_TASKS, tasks});
 
 export const getTasksAction = () => async (dispatch: any): Promise<void> => {
   const token = await getAuthToken();
-  const response = await makeCall('get', TASKS_URL, {
-    config: {
-      headers: {authorization: token},
-    },
-  });
-  dispatch(receiveTasksAction(response.data));
+  try {
+    const response = await makeCall('get', TASKS_URL, {
+      config: {
+        headers: {authorization: token},
+      },
+    });
+    dispatch(receiveTasksAction(response.data));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const updateTaskAction = (tasks: Tasks, id: string) => async (
